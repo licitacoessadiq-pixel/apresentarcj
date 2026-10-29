@@ -1,0 +1,340 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Reconfiguração da Rede Municipal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: relatório formal em coluna única, com margem esquerda de rótulos em telas largas.
+   Cor: azul-tinta (estrutura), verde-sinal (economia), âmbar (alertas). Neutros levemente esverdeados. */
+:root {
+  --bg: #f4f6f5;
+  --surface: #ffffff;
+  --ink: #12222f;
+  --muted: #566672;
+  --line: #d5dcd9;
+  --brand: #14405f;
+  --brand-ink: #ffffff;
+  --save: #0b7a57;
+  --save-soft: #dcf0e8;
+  --warn: #9a5b00;
+  --warn-soft: #fbefd5;
+  --bar-old: #aab6bd;
+  --bar-new: #14405f;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-head: "IBM Plex Sans Condensed", "IBM Plex Sans", system-ui, sans-serif;
+  --font-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e171d; --surface: #152430; --ink: #e6edf0; --muted: #9aaab4; --line: #2a3b47;
+    --brand: #7db6dc; --brand-ink: #0e171d; --save: #4fd1a1; --save-soft: #12372c;
+    --warn: #f0b95a; --warn-soft: #3a2c10; --bar-old: #4b5d69; --bar-new: #7db6dc;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e171d; --surface: #152430; --ink: #e6edf0; --muted: #9aaab4; --line: #2a3b47;
+  --brand: #7db6dc; --brand-ink: #0e171d; --save: #4fd1a1; --save-soft: #12372c;
+  --warn: #f0b95a; --warn-soft: #3a2c10; --bar-old: #4b5d69; --bar-new: #7db6dc;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body);
+  font-size: 16px; line-height: 1.6; margin: 0;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+.wrap { max-width: 1040px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-head); font-weight: 600; margin: 0; text-wrap: balance; letter-spacing: 0.005em; }
+p { margin: 0 0 12px; max-width: 68ch; }
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; }
+
+/* cabeçalho */
+.top { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: baseline;
+  padding-block: 20px 14px; border-bottom: 2px solid var(--brand); font-size: 13px; color: var(--muted); }
+.top strong { font-family: var(--font-head); font-size: 18px; letter-spacing: 0.04em; color: var(--brand); }
+.hero { padding-block: 40px 28px; }
+.kicker { font-family: var(--font-num); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.hero h1 { font-size: clamp(32px, 6vw, 54px); line-height: 1.05; max-width: 20ch; }
+.hero .lead { margin-top: 16px; font-size: 18px; color: var(--muted); max-width: 60ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 28px; margin-top: 20px; font-size: 13px; color: var(--muted); }
+.meta b { color: var(--ink); font-weight: 500; }
+
+/* meta principal */
+.goal { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); background: var(--brand); color: var(--brand-ink); border-radius: 4px; overflow: hidden; }
+.goal > div { padding: 24px 28px; min-width: 0; }
+.goal .right { background: rgba(0,0,0,.14); display: grid; gap: 14px; align-content: center; }
+.goal .label { font-family: var(--font-num); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+.goal .big { font-family: var(--font-head); font-size: clamp(40px, 7vw, 64px); font-weight: 600; line-height: 1; margin-top: 8px; }
+.goal .big small { font-size: .38em; font-weight: 500; opacity: .85; margin-left: 4px; }
+.goal p { margin: 12px 0 0; opacity: .92; font-size: 15px; }
+.pair { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 10px; }
+.pair:last-child { border: 0; padding: 0; }
+.pair span:first-child { font-size: 13px; opacity: .85; }
+.pair .num { font-size: 20px; }
+.pair s { opacity: .6; }
+
+/* seções */
+section { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 40px; padding-block: 44px 0; }
+.sec-label { font-family: var(--font-num); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 8px; border-top: 2px solid var(--ink); align-self: start; }
+.sec-body { min-width: 0; padding-top: 6px; }
+.sec-body h2 { font-size: clamp(24px, 3.4vw, 32px); line-height: 1.15; margin-bottom: 14px; }
+.sec-body h3 { font-size: 18px; margin: 24px 0 8px; }
+
+/* alerta de pontos */
+.alert { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 20px; align-items: center; background: var(--warn-soft); border-left: 5px solid var(--warn); padding: 18px 22px; margin-block: 18px; }
+.alert .big { font-family: var(--font-head); font-size: 56px; font-weight: 600; line-height: 1; color: var(--warn); }
+.alert p { margin: 0; font-size: 15px; }
+.alert b { font-weight: 600; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 8px; }
+.cards > div { background: var(--surface); padding: 14px 16px; min-width: 0; }
+.cards .n { font-family: var(--font-head); font-size: 30px; font-weight: 600; line-height: 1.1; }
+.cards .t { font-size: 13px; color: var(--muted); }
+.cards .m { font-family: var(--font-num); font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* infraestrutura */
+.checks { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 10px; max-width: 70ch; }
+.checks li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; }
+.checks li::before { content: ""; width: 18px; height: 18px; margin-top: 4px; border-radius: 2px; background: var(--save); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M3 9.5l4 4 8-9' fill='none' stroke='black' stroke-width='2.4'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M3 9.5l4 4 8-9' fill='none' stroke='black' stroke-width='2.4'/%3E%3C/svg%3E") center/contain no-repeat; }
+
+/* tabelas */
+.scroll { overflow-x: auto; border: 1px solid var(--line); background: var(--surface); margin-top: 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 640px; }
+th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font-family: var(--font-num); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; background: var(--bg); white-space: nowrap; }
+td.r, th.r { text-align: right; }
+td.num { white-space: nowrap; }
+tbody tr:last-child td { border-bottom: 0; }
+tfoot td { font-weight: 600; background: var(--bg); border-top: 2px solid var(--ink); border-bottom: 0; }
+.from { color: var(--muted); }
+.arrow { color: var(--muted); padding-inline: 6px; }
+.down { color: var(--save); font-weight: 500; }
+.tag { display: inline-block; font-family: var(--font-num); font-size: 11px; padding: 1px 7px; border: 1px solid var(--warn); color: var(--warn); border-radius: 2px; margin-left: 6px; white-space: nowrap; }
+
+/* barras */
+.bars { display: grid; gap: 14px; margin-top: 10px; max-width: 760px; }
+.bar-row { display: grid; grid-template-columns: 190px minmax(0, 1fr) 100px; gap: 14px; align-items: center; font-size: 14px; }
+.track { background: var(--line); height: 22px; border-radius: 2px; overflow: hidden; }
+.fill { height: 100%; background: var(--save); }
+.bar-row .v { font-family: var(--font-num); text-align: right; font-weight: 500; }
+.note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+
+.dual { display: grid; gap: 3px; min-width: 150px; }
+.dual i { display: block; height: 7px; border-radius: 1px; }
+.dual i:first-child { background: var(--bar-old); }
+.dual i:last-child { background: var(--bar-new); }
+.legend { display: flex; gap: 18px; font-size: 13px; color: var(--muted); margin-top: 10px; flex-wrap: wrap; }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 8px; margin-right: 6px; background: var(--bar-old); }
+.legend span:last-child::before { background: var(--bar-new); }
+
+/* suporte */
+.sla { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 10px; }
+.sla > div { background: var(--surface); border: 1px solid var(--line); padding: 20px 22px; min-width: 0; }
+.sla .time { font-family: var(--font-head); font-size: 40px; font-weight: 600; line-height: 1.05; color: var(--brand); }
+.sla .what { font-weight: 600; margin: 6px 0 6px; }
+.sla p { font-size: 14px; color: var(--muted); margin: 0; }
+.contact { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 14px; }
+.contact b { font-weight: 500; color: var(--muted); font-family: var(--font-num); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; margin-right: 8px; }
+
+/* passos */
+.steps { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 0; border-top: 1px solid var(--line); max-width: 760px; }
+.steps li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.steps .who { font-family: var(--font-num); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+
+footer { margin-top: 56px; padding-top: 18px; border-top: 2px solid var(--brand); display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 32px; font-size: 13px; color: var(--muted); }
+footer b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 2px; }
+footer .num { font-size: 13px; }
+
+:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
+
+@media (max-width: 760px) {
+  section { grid-template-columns: minmax(0, 1fr); gap: 0; padding-top: 36px; }
+  .goal { grid-template-columns: minmax(0, 1fr); }
+  .bar-row { grid-template-columns: minmax(0, 1fr) 90px; }
+  .bar-row .track { grid-column: 1 / -1; grid-row: 2; }
+  .steps li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .alert { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <strong>CJ NET TELECOMUNICAÇÕES</strong>
+    <span>CNPJ 27.032.330/0001-15 · Rua das Pedras, 60, Centro, Antônio Cardoso – BA</span>
+  </div>
+
+  <header class="hero">
+    <div class="kicker">Relatório para a gestão municipal</div>
+    <h1>Reconfiguração da rede de internet da Prefeitura</h1>
+    <p class="lead">Proposta de redistribuição de velocidades nos pontos atendidos, com meta de reduzir o custo mensal do contrato sem afetar o uso dos serviços.</p>
+    <div class="meta">
+      <span>Elaborado por <b>Junior, CJ Net</b></span>
+      <span>Data <b>29/10/2026</b></span>
+      <span>Base de cálculo <b>faturamento de outubro/2026</b></span>
+    </div>
+    <div class="meta">
+      <span>Pregão <b>008/2025-PE</b></span>
+      <span>Processo Administrativo <b>198/2025</b></span>
+      <span>Contrato <b>164/2025</b></span>
+    </div>
+  </header>
+
+  <div class="goal" role="group" aria-label="Meta de redução">
+    <div>
+      <div class="label">Meta de redução</div>
+      <div class="big num">R$ 1.806<small>/mês</small></div>
+      <p>10,5% a menos na fatura, o equivalente a R$ 21.672,00 por ano, com o valor de R$ 8,40 por Mbps mantido.</p>
+    </div>
+    <div class="right">
+      <div class="pair"><span>Fatura atual</span><span class="num"><s>R$ 17.220,00</s></span></div>
+      <div class="pair"><span>Fatura proposta</span><span class="num">R$ 15.414,00</span></div>
+      <div class="pair"><span>Banda total</span><span class="num"><s>2.050</s> → 1.835 Mbps</span></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-label">A rede hoje</div>
+    <div class="sec-body">
+      <h2>36 pontos em funcionamento em 9 secretarias</h2>
+      <p>A CJ Net fornece link dedicado a 36 pontos do município, entre a sede e sete localidades: Oleiro, Poço, Santo Estevão Velho, Gavião, Km 28, Caboronga e Tocos. O faturamento de outubro reúne 11 notas fiscais e 2.050 Mbps contratados.</p>
+      <div class="alert">
+        <div class="big num">36</div>
+        <p><b>Atenção ao tamanho da operação.</b> Cada ponto tem link próprio, monitoramento e manutenção. Reduzir velocidade exige reconfigurar com cuidado para não deixar nenhuma unidade sem o serviço que usa hoje.</p>
+      </div>
+      <div class="cards">
+        <div><div class="n num">12</div><div class="t">Saúde</div><div class="m">580 Mbps</div></div>
+        <div><div class="n num">8</div><div class="t">Educação</div><div class="m">395 Mbps</div></div>
+        <div><div class="n num">4</div><div class="t">Prefeitura e setores</div><div class="m">500 Mbps</div></div>
+        <div><div class="n num">4</div><div class="t">Desenvolvimento Social</div><div class="m">205 Mbps</div></div>
+        <div><div class="n num">3</div><div class="t">Agricultura</div><div class="m">135 Mbps</div></div>
+        <div><div class="n num">2</div><div class="t">Serviços Públicos</div><div class="m">85 Mbps</div></div>
+        <div><div class="n num">3</div><div class="t">Obras, Cultura e Igualdade Racial</div><div class="m">150 Mbps</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Infraestrutura</div>
+    <div class="sec-body">
+      <h2>Todos os pontos foram reestruturados e receberam equipamento novo</h2>
+      <p>Antes de qualquer ajuste de velocidade, a base técnica já está renovada. Isso permite reduzir a banda contratada sem perder estabilidade.</p>
+      <ul class="checks">
+        <li><span>Cabeamento e infraestrutura reestruturados em todos os pontos fornecidos.</span></li>
+        <li><span>Equipamentos novos e de qualidade instalados em todos os pontos, além do que o edital exige, para garantir o funcionamento dos serviços de internet.</span></li>
+        <li><span>Valor unitário preservado em R$ 8,40 por Mbps, sem custo adicional pela troca de equipamentos.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">A proposta</div>
+    <div class="sec-body">
+      <h2>De onde para onde: seis pontos mudam, 30 ficam como estão</h2>
+      <p>A redistribuição segue quatro critérios. As secretarias com sede acima de 70 Mbps reduzem 15 Mbps; as de 50 Mbps não são tocadas. A Prefeitura reduz 100 Mbps. A Escola Santa Rita, no Gavião, sai da rede porque foi atendida recentemente pelo governo federal. O ponto de ônibus de Caboronga também é desligado.</p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Ponto</th><th class="r">Velocidade</th><th class="r">Valor mensal</th><th class="r">Economia</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Prefeitura Municipal</td><td class="r num"><span class="from">300</span><span class="arrow">→</span>200 Mbps</td><td class="r num"><span class="from">2.520,00</span><span class="arrow">→</span>1.680,00</td><td class="r num down">840,00</td></tr>
+            <tr><td>Escola Santa Rita (Gavião)<span class="tag">ponto retirado</span></td><td class="r num"><span class="from">35</span><span class="arrow">→</span>0 Mbps</td><td class="r num"><span class="from">294,00</span><span class="arrow">→</span>0,00</td><td class="r num down">294,00</td></tr>
+            <tr><td>Ponto de ônibus (Caboronga)<span class="tag">ponto retirado</span></td><td class="r num"><span class="from">35</span><span class="arrow">→</span>0 Mbps</td><td class="r num"><span class="from">294,00</span><span class="arrow">→</span>0,00</td><td class="r num down">294,00</td></tr>
+            <tr><td>Sede da Secretaria de Saúde</td><td class="r num"><span class="from">100</span><span class="arrow">→</span>85 Mbps</td><td class="r num"><span class="from">840,00</span><span class="arrow">→</span>714,00</td><td class="r num down">126,00</td></tr>
+            <tr><td>Sede da Secretaria de Educação</td><td class="r num"><span class="from">100</span><span class="arrow">→</span>85 Mbps</td><td class="r num"><span class="from">840,00</span><span class="arrow">→</span>714,00</td><td class="r num down">126,00</td></tr>
+            <tr><td>Sede da Secretaria de Desenvolvimento Social</td><td class="r num"><span class="from">100</span><span class="arrow">→</span>85 Mbps</td><td class="r num"><span class="from">840,00</span><span class="arrow">→</span>714,00</td><td class="r num down">126,00</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td>Total dos pontos alterados</td><td class="r num"><span class="from">670</span><span class="arrow">→</span>455 Mbps</td><td class="r num"><span class="from">5.628,00</span><span class="arrow">→</span>3.822,00</td><td class="r num down">1.806,00</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="note">Valores em reais por mês. Os demais 30 pontos (UBS, postos, escolas, creches, CRAS, Conselho Tutelar, feira, almoxarifado, sedes de 50 Mbps e setores da Prefeitura) mantêm a velocidade atual.</p>
+
+      <h3>De onde vem a economia</h3>
+      <div class="bars">
+        <div class="bar-row"><span>Prefeitura Municipal (−100 Mbps)</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="v">R$ 840</span></div>
+        <div class="bar-row"><span>Sedes de Saúde, Educação e Social (−15 Mbps cada)</span><div class="track"><div class="fill" style="width:45%"></div></div><span class="v">R$ 378</span></div>
+        <div class="bar-row"><span>Escola Santa Rita (ponto retirado)</span><div class="track"><div class="fill" style="width:35%"></div></div><span class="v">R$ 294</span></div>
+        <div class="bar-row"><span>Ponto de ônibus de Caboronga (ponto retirado)</span><div class="track"><div class="fill" style="width:35%"></div></div><span class="v">R$ 294</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Resultado</div>
+    <div class="sec-body">
+      <h2>Como fica cada secretaria</h2>
+      <p>Nenhum ponto que continua na rede fica abaixo de 35 Mbps, que é o padrão que já atende UBS, escolas e creches. A Prefeitura mantém 200 Mbps no ponto principal e as sedes de 100 Mbps passam a 85 Mbps.</p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Secretaria</th><th class="r">Pontos</th><th>Banda (Mbps)</th><th class="r">Valor atual</th><th class="r">Valor proposto</th><th class="r">Economia</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Prefeitura e setores</td><td class="r num">4</td><td><div class="dual"><i style="width:86.2%"></i><i style="width:69%"></i></div><span class="num note">500 → 400</span></td><td class="r num">4.200,00</td><td class="r num">3.360,00</td><td class="r num down">840,00</td></tr>
+            <tr><td>Saúde</td><td class="r num">12</td><td><div class="dual"><i style="width:100%"></i><i style="width:97.4%"></i></div><span class="num note">580 → 565</span></td><td class="r num">4.872,00</td><td class="r num">4.746,00</td><td class="r num down">126,00</td></tr>
+            <tr><td>Educação</td><td class="r num">8 → 7</td><td><div class="dual"><i style="width:68.1%"></i><i style="width:59.5%"></i></div><span class="num note">395 → 345</span></td><td class="r num">3.318,00</td><td class="r num">2.898,00</td><td class="r num down">420,00</td></tr>
+            <tr><td>Desenvolvimento Social</td><td class="r num">4</td><td><div class="dual"><i style="width:35.3%"></i><i style="width:32.8%"></i></div><span class="num note">205 → 190</span></td><td class="r num">1.722,00</td><td class="r num">1.596,00</td><td class="r num down">126,00</td></tr>
+            <tr><td>Agricultura</td><td class="r num">3 → 2</td><td><div class="dual"><i style="width:23.3%"></i><i style="width:17.2%"></i></div><span class="num note">135 → 100</span></td><td class="r num">1.134,00</td><td class="r num">840,00</td><td class="r num down">294,00</td></tr>
+            <tr><td>Serviços Públicos</td><td class="r num">2</td><td><div class="dual"><i style="width:14.7%"></i><i style="width:14.7%"></i></div><span class="num note">85 (sem alteração)</span></td><td class="r num">714,00</td><td class="r num">714,00</td><td class="r num">0,00</td></tr>
+            <tr><td>Obras</td><td class="r num">1</td><td><div class="dual"><i style="width:8.6%"></i><i style="width:8.6%"></i></div><span class="num note">50 (sem alteração)</span></td><td class="r num">420,00</td><td class="r num">420,00</td><td class="r num">0,00</td></tr>
+            <tr><td>Cultura, Esporte e Lazer</td><td class="r num">1</td><td><div class="dual"><i style="width:8.6%"></i><i style="width:8.6%"></i></div><span class="num note">50 (sem alteração)</span></td><td class="r num">420,00</td><td class="r num">420,00</td><td class="r num">0,00</td></tr>
+            <tr><td>Igualdade Racial</td><td class="r num">1</td><td><div class="dual"><i style="width:8.6%"></i><i style="width:8.6%"></i></div><span class="num note">50 (sem alteração)</span></td><td class="r num">420,00</td><td class="r num">420,00</td><td class="r num">0,00</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td>Total</td><td class="r num">36 → 34</td><td class="num">2.050 → 1.835</td><td class="r num">17.220,00</td><td class="r num">15.414,00</td><td class="r num down">1.806,00</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="legend"><span>Banda atual</span><span>Banda proposta</span></div>
+      <p class="note">A Educação passa de 8 para 7 pontos com a retirada da Escola Santa Rita, e a Agricultura de 3 para 2 com a retirada do ponto de ônibus de Caboronga. A Escola Celestino segue com 50 Mbps, após o aumento recente de 35 para 50.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Suporte</div>
+    <div class="sec-body">
+      <h2>Atendimento com prazo definido, em todos os 36 pontos</h2>
+      <p>A redução de velocidade não muda o nível de suporte. A CJ Net trabalha com SLA e acompanha cada chamado até a solução, inclusive quando o problema depende de outras empresas.</p>
+      <div class="sla">
+        <div>
+          <div class="time num">&lt; 120 min</div>
+          <div class="what">Problemas de competência da CJ Net</div>
+          <p>Prazo máximo de solução para tudo que está sob responsabilidade da empresa: link, equipamentos, cabeamento e configuração.</p>
+        </div>
+        <div>
+          <div class="time num">4 h a 24 h</div>
+          <div class="what">Ocorrências de terceiros</div>
+          <p>Quando a causa está fora da CJ Net, a empresa abre o chamado, cobra e acompanha a solução, e faz o máximo para encurtar o prazo.</p>
+        </div>
+      </div>
+      <div class="contact">
+        <span><b>0800</b><span class="num">0800 1600 222</span></span>
+        <span><b>Telefone</b><span class="num">(75) 98020-20732</span></span>
+        <span><b>E-mail</b>cjnettelecom@gmail.com</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">Próximos passos</div>
+    <div class="sec-body">
+      <h2>Como aplicar a proposta</h2>
+      <ol class="steps">
+        <li><span class="who">Gestão</span><span>Avaliar a proposta e confirmar os pontos e as velocidades. Em especial, confirmar a retirada da Escola Santa Rita e do ponto de ônibus de Caboronga, e a nova velocidade da Prefeitura.</span></li>
+        <li><span class="who">Contrato</span><span>Formalizar a alteração do contrato 164/2025 por termo aditivo. A redução de 10,5% do valor global deve ser conferida com o jurídico do município quanto ao limite legal de supressão.</span></li>
+        <li><span class="who">CJ Net</span><span>Aplicar as novas velocidades ponto a ponto e acompanhar a rede nos primeiros dias, com atendimento prioritário a qualquer relato das secretarias.</span></li>
+        <li><span class="who">Faturamento</span><span>Emitir as notas fiscais com as novas velocidades e o mesmo valor de R$ 8,40 por Mbps, a partir da data definida no aditivo.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <div><b>CJ NET TELECOMUNICAÇÕES LTDA</b><span class="num">CNPJ 27.032.330/0001-15</span><br>Rua das Pedras, nº 60, Centro, Antônio Cardoso – BA</div>
+    <div><b>Contrato</b>Pregão 008/2025-PE<br>Processo Administrativo 198/2025<br>Contrato 164/2025</div>
+    <div><b>Elaboração</b>Junior, CJ Net<br>29 de outubro de 2026<br>Documento para avaliação da gestão municipal</div>
+  </footer>
+</div>
+
+</body></html>
